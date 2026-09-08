@@ -20,69 +20,21 @@
         .back-link a { color: #58a6ff; text-decoration: none; font-size: 1rem; }
         .back-link a:hover { text-decoration: underline; }
         h1 { font-size: 2rem; font-weight: 300; margin-bottom: 30px; color: #f0f6fc; }
-        .viewer-container {
-            width: 100%;
-            max-width: 1000px;
-            height: 80vh;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #161b22;
-        }
+        .viewer-container { width: 100%; max-width: 1000px; height: 80vh; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; background: #161b22; }
+        .viewer-container iframe { width: 100%; height: 100%; border: none; }
         .download-section { margin-top: 20px; }
-        .download-section a {
-            color: #58a6ff;
-            text-decoration: none;
-            padding: 10px 25px;
-            border: 2px solid #58a6ff;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
+        .download-section a { color: #58a6ff; text-decoration: none; padding: 10px 25px; border: 2px solid #58a6ff; border-radius: 6px; transition: all 0.3s ease; display: inline-block; }
         .download-section a:hover { background: #58a6ff; color: #0d1117; }
     </style>
 </head>
 <body>
     <div class="back-link"><a href="../pre-algebra.html">← Back to Pre-Algebra</a></div>
     <h1>Pre-Algebra Extras</h1>
-    <div class="viewer-container" id="viewer"></div>
+    <div class="viewer-container">
+        <iframe src="https://docs.google.com/gview?url=https://medemaka.github.io/hurlesmathsexplainedbadly/pre-algebra/pre-algebra-extras/Pre-algebra%20Extras.pptx&embedded=true"></iframe>
+    </div>
     <div class="download-section">
         <a href="Pre-algebra%20Extras.pptx" download>⬇ Download Pre-Algebra Extras.pptx</a>
     </div>
-
-    <!-- Import the pptx-viewer library -->
-    <script type="importmap">
-        {
-            "imports": {
-                "pptx-viewer": "https://unpkg.com/pptx-viewer@0.2.2/dist/pptx-viewer.js"
-            }
-        }
-    </script>
-
-    <script type="module">
-        import { PPTXViewer } from 'pptx-viewer';
-
-        // Initialize the viewer
-        const viewer = new PPTXViewer('#viewer', {
-            showControls: true,
-            keyboardNavigation: true,
-            onError: (error) => {
-                console.error('Failed to load presentation:', error);
-                document.getElementById('viewer').innerHTML = `
-                    <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#e94560;font-size:1.2rem;padding:20px;text-align:center;">
-                        Failed to load presentation.<br>
-                        <span style="font-size:0.9rem;color:#8a7a5a;">You can still download the file below.</span>
-                    </div>
-                `;
-            }
-        });
-
-        // Load the presentation from the URL
-        try {
-            await viewer.load('Pre-algebra%20Extras.pptx');
-        } catch (error) {
-            console.error('Failed to load:', error);
-        }
-    </script>
 </body>
 </html>
