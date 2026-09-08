@@ -45,58 +45,44 @@
 <body>
     <div class="back-link"><a href="../pre-algebra.html">← Back to Pre-Algebra</a></div>
     <h1>Pre-Algebra Extras</h1>
-    <div class="viewer-container" id="viewer">
-        <!-- docMentis viewer will be rendered here -->
-        <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#4a3a2a;font-size:1.2rem;">
-            Loading viewer...
-        </div>
-    </div>
+    <div class="viewer-container" id="viewer"></div>
     <div class="download-section">
         <a href="Pre-algebra%20Extras.pptx" download>⬇ Download Pre-Algebra Extras.pptx</a>
     </div>
 
-    <!-- Import docMentis from CDN -->
+    <!-- Import the pptx-viewer library -->
     <script type="importmap">
         {
             "imports": {
-                "udoc-viewer": "https://unpkg.com/@docmentis/udoc-viewer@0.7.17/dist/udoc-viewer.js"
+                "pptx-viewer": "https://unpkg.com/pptx-viewer@0.2.2/dist/pptx-viewer.js"
             }
         }
     </script>
 
     <script type="module">
-        import { UDocClient } from 'udoc-viewer';
+        import { PPTXViewer } from 'pptx-viewer';
 
-        async function loadViewer() {
-            const container = document.getElementById('viewer');
-            
-            // Create the viewer client
-            const client = await UDocClient.create();
-            
-            // Create the viewer instance
-            const viewer = await client.createViewer({
-                container: container,
-                // Optional: customize the viewer appearance
-                theme: 'dark',
-                // Optional: hide the download button if you have your own
-                // toolbar: { download: false }
-            });
-
-            // Load your PowerPoint file
-            const fileUrl = 'Pre-algebra%20Extras.pptx';
-            await viewer.load(fileUrl);
-        }
-
-        // Start the viewer
-        loadViewer().catch(error => {
-            console.error('Failed to load viewer:', error);
-            document.getElementById('viewer').innerHTML = `
-                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#e94560;font-size:1.2rem;padding:20px;text-align:center;">
-                    Failed to load document.<br>
-                    <span style="font-size:0.9rem;color:#8a7a5a;">You can still download the file below.</span>
-                </div>
-            `;
+        // Initialize the viewer
+        const viewer = new PPTXViewer('#viewer', {
+            showControls: true,
+            keyboardNavigation: true,
+            onError: (error) => {
+                console.error('Failed to load presentation:', error);
+                document.getElementById('viewer').innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#e94560;font-size:1.2rem;padding:20px;text-align:center;">
+                        Failed to load presentation.<br>
+                        <span style="font-size:0.9rem;color:#8a7a5a;">You can still download the file below.</span>
+                    </div>
+                `;
+            }
         });
+
+        // Load the presentation from the URL
+        try {
+            await viewer.load('Pre-algebra%20Extras.pptx');
+        } catch (error) {
+            console.error('Failed to load:', error);
+        }
     </script>
 </body>
 </html>
